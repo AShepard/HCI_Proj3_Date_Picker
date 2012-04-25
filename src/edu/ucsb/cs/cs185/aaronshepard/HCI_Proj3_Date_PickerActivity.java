@@ -2,13 +2,23 @@ package edu.ucsb.cs.cs185.aaronshepard;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.format.Time;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class HCI_Proj3_Date_PickerActivity extends Activity {
-	private String m_from_string;
-	private String m_to_string;
+	private final String FROMTEXT = "From: ";
+	private final String TOTEXT = "To: ";
+	
+	private Button b_set;
+	
+	private TextView tv_from;
+	private TextView tv_to;
 	
     /** Called when the activity is first created. */
     @Override
@@ -16,8 +26,27 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        tv_from = (TextView) findViewById(R.id.tv_from);
+    	tv_to = (TextView) findViewById(R.id.tv_to);
+    	
+    	/*
+    	 * set to and from fields to current date
+    	 */
+    	setDates();
+    	
+        b_set = (Button)findViewById(R.id.b_set);
+        
+        b_set.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				setDates();
+			}
+		});
     }
 	
+  //TODO
 	private void setDates() {
 		int day, month, year, hour, minute;
 		boolean am_time= false;
@@ -25,11 +54,11 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		TimePicker dp_date = (TimePicker)findViewById(R.id.tp_timePicker);
 		
 		/*
-		 * get current date
+		 * get entered date
 		 */
 		
 		/*
-		 * Get current time
+		 * Get entered time
 		 */
 		minute = dp_date.getCurrentMinute();
 		
@@ -57,5 +86,6 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		date_string = date_string.concat(":");
 		date_string = date_string.concat(Integer.toString(minute));
 	}
+	
 	
 }

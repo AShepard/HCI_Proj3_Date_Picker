@@ -1,46 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--alignment learned from: http://www.youtube.com/watch?v=ClrLNXLd5vs -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <NumberPicker
-        android:id="@+id/numberPicker1"
+    
+    <TextView
+        android:id="@+id/tv_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="30dp" />
-
-    <DatePicker
+        android:text="From: " />
+
+    <TextView
+        android:id="@+id/tv_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="To:  " />
+    
+	<DatePicker
         android:id="@+id/datePicker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_marginTop="18dp" />
-
+	
     <TimePicker
         android:id="@+id/tp_timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/datePicker1"
-        android:layout_marginTop="66dp" />
-
-    <TextView
-        android:id="@+id/tv_from"
-        android:layout_width="fill_parent"
+        android:layout_below="@+id/datePicker1" />
+    
+	<TextView
+        android:id="@+id/tv_duration"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tv_to"
-        android:layout_alignTop="@+id/datePicker1"
-        android:text="from: " />
+        android:layout_below="@+id/tp_timePicker"
+        android:text="Duration"/>
+	
+    <NumberPicker
+        android:id="@+id/np_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_duration"/>
+   	
+   	<NumberPicker
+        android:id="@+id/np_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/np_hour"
+        android:layout_toRightOf="@+id/np_hour" />
+  
+   	<Button
+        android:id="@+id/b_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="@+id/np_minute"
+        android:layout_toRightOf="@+id/np_minute"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Set" />
 
-    <TextView
-        android:id="@+id/tv_to"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/numberPicker1"
-        android:text="to: " />
+    
 
 </RelativeLayout>
