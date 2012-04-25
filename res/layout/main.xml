@@ -23,22 +23,22 @@
         android:text="To:  " />
     
 	<DatePicker
-        android:id="@+id/datePicker1"
+        android:id="@+id/dp_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp" />
 	
     <TimePicker
-        android:id="@+id/tp_timePicker"
+        android:id="@+id/tp_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/datePicker1" />
+        android:layout_below="@+id/dp_date" />
     
 	<TextView
         android:id="@+id/tv_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tp_timePicker"
+        android:layout_below="@+id/tp_time"
         android:text="Duration"/>
 	
     <NumberPicker

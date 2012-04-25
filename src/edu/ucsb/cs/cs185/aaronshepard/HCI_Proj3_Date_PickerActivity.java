@@ -46,33 +46,47 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		});
     }
 	
-  //TODO
 	private void setDates() {
+		String from_text, to_text;
 		int day, month, year, hour, minute;
+		int duration_hour, duration_minute;
 		boolean am_time= false;
 		
-		TimePicker dp_date = (TimePicker)findViewById(R.id.tp_timePicker);
+		DatePicker dp_date = (DatePicker)findViewById(R.id.dp_date);
+		TimePicker tp_time = (TimePicker)findViewById(R.id.tp_time);
 		
+		NumberPicker np_hour = (NumberPicker)findViewById(R.id.np_hour);
+		NumberPicker np_minute = (NumberPicker)findViewById(R.id.np_minute);
 		/*
 		 * get entered date
 		 */
-		
+		day = dp_date.getDayOfMonth();
+		month = dp_date.getMonth();
+		year = dp_date.getYear();
 		/*
 		 * Get entered time
 		 */
-		minute = dp_date.getCurrentMinute();
+		minute = tp_time.getCurrentMinute();
+		hour = tp_time.getCurrentHour();
 		
-		hour = dp_date.getCurrentHour();
+		from_text = getDateString(day, month, year, hour, minute, FROMTEXT);
+		tv_from.setText(from_text);
 		
-		//get duration
+		/*
+		 * TODO
+		 * Get duration
+		 */
+		duration_hour = np_hour.getValue();
+		duration_minute = np_minute.getValue();
 		
-		
-		//set to date
+		/*
+		 * TODO
+		 * calculate To date
+		 */
 		
 	}
 	
-	//TODO
-	private void getDateString(int day, int month, int year, int hour, int minute, String begin_str) {
+	private String getDateString(int day, int month, int year, int hour, int minute, String begin_str) {
 		String date_string = "";
 		
 		date_string = date_string.concat(begin_str);
@@ -85,6 +99,8 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		date_string = date_string.concat(Integer.toString(hour));
 		date_string = date_string.concat(":");
 		date_string = date_string.concat(Integer.toString(minute));
+		
+		return date_string;
 	}
 	
 	
