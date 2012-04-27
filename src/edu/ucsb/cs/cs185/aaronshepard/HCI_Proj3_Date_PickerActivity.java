@@ -28,6 +28,8 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 	
 	private NumberPicker np_hour;
 	private NumberPicker np_minute;
+	
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,10 +37,12 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
         setContentView(R.layout.main);
         
         dp_date = (DatePicker)findViewById(R.id.dp_date);
+        
 		tp_time = (TimePicker)findViewById(R.id.tp_time);
 		
         np_hour = (NumberPicker)findViewById(R.id.np_hour);
 		np_minute = (NumberPicker)findViewById(R.id.np_minute);
+		
 		/*
 		 * set number picker min/masx values
 		 */
@@ -46,21 +50,12 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		np_hour.setMinValue(0);
 		
 		np_minute.setMaxValue(59);
-		np_hour.setMinValue(0);
+		np_minute.setMinValue(0);
 		
 		//set date constraints
 		// http://stackoverflow.com/questions/5296919/setting-minimum-year-in-calendar
 		Calendar start = new GregorianCalendar(2004, Calendar.JANUARY, 1);
-		/*
-		start.add(Calendar.YEAR, 2004);
-		start.add(Calendar.MONTH, Calendar.JANUARY);
-		start.add(Calendar.DAY_OF_MONTH, 1);
-		*/
-		
 		Calendar end = new GregorianCalendar(2012, Calendar.DECEMBER, 31);
-		//end.add(Calendar.YEAR, 2012);
-		//end.add(Calendar.MONTH, Calendar.DECEMBER);
-		//end.add(Calendar.DAY_OF_MONTH, 31);
 		
 		long start_time = start.getTimeInMillis();
 		long end_time = end.getTimeInMillis();
@@ -116,110 +111,39 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		duration_minute = np_minute.getValue();
 		
 		/*
-		 * calculate To date
+		 * calculate "To" date:
+		 	* create calendar of from date
+		 	* add duration to calendar 
 		 */
+		
+		Calendar to_cal = new GregorianCalendar(from_year, from_month, from_day);
+		to_cal.add(Calendar.HOUR, from_hour);
+		to_cal.add(Calendar.MINUTE, from_minute);
+		
+		//http://www.java-examples.com/add-or-substract-hours-current-time-using-java-calendar
+		to_cal.add(Calendar.HOUR, duration_hour);
+		to_cal.add(Calendar.MINUTE, duration_minute);
 		
 		int to_day, to_month, to_year, to_hour, to_minute;
 		
-		//first calculate new minute
-		int overflow = 0;
+		to_day = to_cal.get(Calendar.DAY_OF_MONTH);
+		to_month = to_cal.get(Calendar.MONTH);
+		to_year = to_cal.get(Calendar.YEAR);
+		to_hour = to_cal.get(Calendar.HOUR);
+		to_minute = to_cal.get(Calendar.MINUTE);
 		
-		to_minute = from_minute + duration_minute;
-		if(to_minute > 59) {
-			//ex: 80 -60 = 20
-			to_minute = to_minute - 60;
-			//overflow cannot be greater than 1
-			overflow = 1;
-		}
-		
-		//calculate new hour
-		to_hour = from_hour + duration_hour + overflow;
-		overflow = 0;
-		if(to_hour > 47) {
-			to_hour = to_hour - 48;
-			overflow = 2;
-		} else if(to_hour > 23) {
-			to_hour = to_hour - 24;
-			overflow = 1;
-		}
-		
-		int days_in_month = getDays(from_month);
-		//calculate new day
-		to_day = from_day + overflow;
-		overflow =0;
-		
-		//if new month
-		if(to_day > days_in_month) {
-			to_day = to_day - days_in_month;
-			overflow = 1;
-		}
-		
-		//calculate new month
-		to_month = from_month = overflow;
-		
-		//if new year
-		if(to_month > 12) {
-			to_month = to_month - 1;
-			overflow = 1;
-		}
-		
-		//calculate new year
-		to_year = from_year + overflow;
+		to_text = getDateString(to_day, to_month, to_year, to_hour, to_minute, TOTEXT);
+		tv_to.setText(to_text);
 	}
 	
-	private int getDays(int month) {
-		int num_days = 0;
-		switch(month) {
-			case Calendar.JANUARY: 
-				num_days = 31;
-				break;
-			case Calendar.FEBRUARY: 
-				num_days = 28;
-				break;
-			case Calendar.MARCH: 
-				num_days = 31;
-				break;
-			case Calendar.APRIL: 
-				num_days = 30;
-				break;
-			case Calendar.MAY: 
-				num_days = 31;
-				break;
-			case Calendar.JUNE: 
-				num_days = 30;
-				break;
-			case Calendar.JULY: 
-				num_days = 31;
-				break;
-			case Calendar.AUGUST: 
-				num_days = 31;
-				break;
-			case Calendar.SEPTEMBER: 
-				num_days = 30;
-				break;
-			case Calendar.OCTOBER: 
-				num_days = 31;
-				break;
-			case Calendar.NOVEMBER: 
-				num_days = 30;
-				break;
-			case Calendar.DECEMBER: 
-				num_days = 31;
-				break;
-			default:
-				num_days = -1;
-		}
-		
-		return num_days;
-	}
 	private String getDateString(int day, int month, int year, int hour, int minute, String begin_str) {
 		String date_string = "";
 		
 		date_string = date_string.concat(begin_str);
-		date_string = date_string.concat(Integer.toString(day));
-		date_string = date_string.concat("-");
 		//change month from zero based
 		date_string = date_string.concat(Integer.toString(month+1));
+		date_string = date_string.concat("-");
+		date_string = date_string.concat(Integer.toString(day));
 		date_string = date_string.concat("-");
 		date_string = date_string.concat(Integer.toString(year));
 		date_string = date_string.concat(",");
