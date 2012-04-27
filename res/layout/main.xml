@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/tv_from"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dip"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:text="From: " />
@@ -21,12 +21,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="To:  " />
-    
+    
 	<DatePicker
-        android:id="@+id/dp_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp" />
+	    android:id="@+id/dp_date"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="18dp" />
 	
     <TimePicker
         android:id="@+id/tp_time"

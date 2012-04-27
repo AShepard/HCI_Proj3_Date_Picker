@@ -37,6 +37,7 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
         setContentView(R.layout.main);
         
         dp_date = (DatePicker)findViewById(R.id.dp_date);
+        dp_date.setCalendarViewShown(false);
         
 		tp_time = (TimePicker)findViewById(R.id.tp_time);
 		
