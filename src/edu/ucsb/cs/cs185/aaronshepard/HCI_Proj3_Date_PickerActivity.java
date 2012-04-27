@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs185.aaronshepard;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,6 +23,9 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 	private TextView tv_from;
 	private TextView tv_to;
 	
+	private DatePicker dp_date;
+	private TimePicker tp_time;
+	
 	private NumberPicker np_hour;
 	private NumberPicker np_minute;
     /** Called when the activity is first created. */
@@ -30,6 +34,9 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        dp_date = (DatePicker)findViewById(R.id.dp_date);
+		tp_time = (TimePicker)findViewById(R.id.tp_time);
+		
         np_hour = (NumberPicker)findViewById(R.id.np_hour);
 		np_minute = (NumberPicker)findViewById(R.id.np_minute);
 		/*
@@ -38,8 +45,28 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		np_hour.setMaxValue(47);
 		np_hour.setMinValue(0);
 		
-		np_minute.setMaxValue(60);
+		np_minute.setMaxValue(59);
 		np_hour.setMinValue(0);
+		
+		//set date constraints
+		// http://stackoverflow.com/questions/5296919/setting-minimum-year-in-calendar
+		Calendar start = new GregorianCalendar(2004, Calendar.JANUARY, 1);
+		/*
+		start.add(Calendar.YEAR, 2004);
+		start.add(Calendar.MONTH, Calendar.JANUARY);
+		start.add(Calendar.DAY_OF_MONTH, 1);
+		*/
+		
+		Calendar end = new GregorianCalendar(2012, Calendar.DECEMBER, 31);
+		//end.add(Calendar.YEAR, 2012);
+		//end.add(Calendar.MONTH, Calendar.DECEMBER);
+		//end.add(Calendar.DAY_OF_MONTH, 31);
+		
+		long start_time = start.getTimeInMillis();
+		long end_time = end.getTimeInMillis();
+		
+		dp_date.setMinDate(start_time);
+		dp_date.setMaxDate(end_time);
 		
         tv_from = (TextView) findViewById(R.id.tv_from);
     	tv_to = (TextView) findViewById(R.id.tv_to);
@@ -47,7 +74,7 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
     	/*
     	 * set to and from fields to current date
     	 */
-    	//setDates();
+    	setDates();
     	
         b_set = (Button)findViewById(R.id.b_set);
         
@@ -67,10 +94,6 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		int duration_hour, duration_minute;
 		boolean am_time= false;
 		
-		DatePicker dp_date = (DatePicker)findViewById(R.id.dp_date);
-		TimePicker tp_time = (TimePicker)findViewById(R.id.tp_time);
-		
-		
 		/*
 		 * get entered date
 		 */
@@ -87,14 +110,12 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		tv_from.setText(from_text);
 		
 		/*
-		 * TODO
 		 * Get duration
 		 */
 		duration_hour = np_hour.getValue();
 		duration_minute = np_minute.getValue();
 		
 		/*
-		 * TODO
 		 * calculate To date
 		 */
 		
@@ -197,7 +218,8 @@ public class HCI_Proj3_Date_PickerActivity extends Activity {
 		date_string = date_string.concat(begin_str);
 		date_string = date_string.concat(Integer.toString(day));
 		date_string = date_string.concat("-");
-		date_string = date_string.concat(Integer.toString(month));
+		//change month from zero based
+		date_string = date_string.concat(Integer.toString(month+1));
 		date_string = date_string.concat("-");
 		date_string = date_string.concat(Integer.toString(year));
 		date_string = date_string.concat(",");

@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, HCI_Proj3_Date_PickerActivity!</string>
-    <string name="app_name">HCI_Proj3_Date_Picker</string>
-
+    <string name="app_name">Date_Picker</string>
 </resources>
